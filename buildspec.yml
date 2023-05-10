@@ -6,13 +6,10 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - export AWS_DEFAULT_REGION=us-east-1
       -$(aws ecr get-login --region $AWS_DEFAULT_REGION --us-east-1)
       - REPOSITORY_URI=public.ecr.aws/i1u3l8c7/node-appp
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
-       - apt-get update && apt-get install -y awscli
-       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin us-east-1
+      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}'
       
   build:
     commands:
